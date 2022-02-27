@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.items-container {
+  background: #fff;
+  border-radius: 0.4rem;
+  width: 300px;
+}
+
+.items-container header {
+  padding: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+}
+
+.cart-item {
+  padding: 15px 20px 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+.cart-item > * {
+  margin-right: 5px;
+}
+
+.cart-item > :first-child {
+  margin-right: 10px;
+}
+
+.badge {
+  padding: 1px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.badge-yellow {
+  background: rgb(241, 198, 4);
+  color: #fff;
+}
+
+.badge-green {
+  background: rgb(2, 173, 45);
+  color: #fff;
+}
+
+.disabled-gray {
+  background: #bfbaba;
+}
+
+button {
+  padding: 2px 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: inherit;
+}
+
+.btn-blue {
+  background: rgb(43, 43, 238);
+}
+
+.btn-gray {
+  background: rgb(92, 91, 91);
+}
+
+.btn-danger {
+  background: red;
+}
+
+.btn-reset {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.btn-purble {
+  background-color: rgb(116 11 255);
+}

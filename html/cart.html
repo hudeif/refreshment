@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="cart.css" />
+    <title>Cart</title>
+  </head>
+  <body>
+    <div class="items-container">
+      <header>
+        <h3>
+          Total items :
+          <span id="total_items">0</span>
+        </h3>
+        <button class="btn-purble btn-reset">reset</button>
+      </header>
+      <div class="cart-body">
+        <!-- <div class="cart-item">
+          <span class="badge badge-yellow count-badge">zero</span>
+          <button class="btn-blue increment">&plus;</button>
+          <button class="decrement disabled-gray">&minus;</button>
+          <button class="btn-danger remove">Delete</button>
+        </div>
+        <div class="cart-item">
+          <span class="badge badge-yellow count-badge">zero</span>
+          <button class="btn-blue increment">&plus;</button>
+          <button class="decrement disabled-gray">&minus;</button>
+          <button class="btn-danger remove">Delete</button>
+        </div> -->
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  let items = [
+    { id: 1, count: 0 },
+    { id: 2, count: 0 },
+    { id: 3, count: 0 },
+  ];
+  let html = "";
+  items.map((i) => {
+    html += `
+     <div class="cart-item">
+          <input type="hidden" class="id" value="${i.id}" />
+          <span class="badge badge-yellow count-badge">zero</span>
+          <button class="btn-blue increment">&plus;</button>
+          <button class="decrement disabled-gray">&minus;</button>
+          <button class="btn-danger remove">Delete</button>
+        </div>
+    `;
+  });
+  document.querySelector(".cart-body").insertAdjacentHTML("afterbegin", html);
+
+  let totalItems = document.querySelector("#total_items");
+  let incrementBtn = document.querySelectorAll(".increment");
+  let decrementBtn = document.querySelectorAll(".decrement");
+  let removeBtn = document.querySelectorAll(".remove");
+  let resetBtn = document.querySelector(".btn-reset");
+
+  function getTotalItems() {
+    totalItems.innerText = items.filter((i) => i.count != 0).length;
+  }
+
+  resetBtn.addEventListener("click", () => {
+    items.map((i) => (i.count = 0));
+    document.querySelectorAll(".count-badge").forEach((c) => {
+      c.innerText = "zero";
+      countBadgeColor(c, "badge-green", "badge-yellow");
+      decrementBtn.forEach((b) => {
+        b.style = "background:#bfbaba;";
+      });
+    });
+    getTotalItems();
+  });
+
+  removeBtn.forEach((btn) => {
+    let parent = btn.parentElement;
+    let id = parent.querySelector(".id").value;
+
+    btn.addEventListener("click", () => {
+      items.forEach((item) => {
+        if (item.id == id) {
+          parent.remove();
+          items = items.filter((i) => i.id != id);
+        }
+      });
+      getTotalItems();
+    });
+  });
+  incrementBtn.forEach((btn) => {
+    let parent = btn.parentElement;
+    let id = parent.querySelector(".id").value;
+    let countBadge = parent.querySelector(".count-badge");
+
+    btn.addEventListener("click", () => {
+      items.forEach((item) => {
+        if (item.id == id) {
+          item.count++;
+          countBadge.innerText = item.count;
+          countBadgeColor(countBadge, "badge-yellow", "badge-green");
+          btn.parentElement.childNodes[7].style = "background:gray";
+          getTotalItems();
+        }
+      });
+    });
+  });
+
+  function countBadgeColor(badge, removed, added) {
+    badge.classList.remove(removed);
+    badge.classList.add(added);
+  }
+
+  decrementBtn.forEach((btn) => {
+    let parent = btn.parentElement;
+    let countBadge = parent.querySelector(".count-badge");
+    let id = parent.querySelector(".id").value;
+
+    btn.addEventListener("click", () => {
+      items.forEach((item) => {
+        if (item.id == id) {
+          if (item.count >= 1) {
+            item.count--;
+            countBadge.innerText = item.count;
+            getTotalItems();
+          }
+
+          if (item.count == 0) {
+            countBadge.innerText = "zero";
+            countBadgeColor(countBadge, "badge-green", "badge-yellow");
+            btn.style = "background:#bfbaba;";
+          }
+        }
+      });
+    });
+  });
+</script>
